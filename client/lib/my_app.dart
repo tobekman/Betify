@@ -1,4 +1,8 @@
+import 'package:betify_client/src/core/config/routes/routes.dart';
+import 'package:betify_client/src/core/config/theme/my_theme.dart';
 import 'package:flutter/material.dart';
+
+import 'src/core/config/routes/pages.dart' as routes;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -6,13 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Betify',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Betify'),
-        ),
-        body: const Text('Betify'),
-      ),
+      onGenerateRoute: routes.controller,
+      initialRoute: Routes.home,
+      theme: MyTheme.theme,
     );
   }
 }
