@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Betify',
       onGenerateRoute: routes.controller,
-      initialRoute: Routes.home,
+      initialRoute: Routes.startingScreen,
       theme: MyTheme.theme,
     );
   }
