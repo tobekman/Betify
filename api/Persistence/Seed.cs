@@ -16,42 +16,42 @@ public class Seed
                     Date = DateTime.Now.AddMonths(-2),
                     Odds = 1.54,
                     Stake = 250,
-                    isWin = false
+                    Result = BetResult.WIN
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-1),
                     Odds = 2.12,
                     Stake = 250,
-                    isWin = false
+                    Result = BetResult.NONE
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-3),
                     Odds = 3.51,
                     Stake = 250,
-                    isWin = false
+                    Result = BetResult.LOSS
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-2),
                     Odds = 1.54,
                     Stake = 250,
-                    isWin = false
+                    Result = BetResult.LOSS
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-1),
                     Odds = 2.12,
                     Stake = 250,
-                    isWin = false
+                    Result = BetResult.NONE
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-3),
                     Odds = 3.51,
                     Stake = 250,
-                    isWin = false
+                    Result = BetResult.NONE
                 }
             };
 

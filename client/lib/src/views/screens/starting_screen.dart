@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'home/home_screen.dart';
 
 class StartingScreen extends StatefulWidget {
-  StartingScreen({Key? key}) : super(key: key);
+  const StartingScreen({Key? key}) : super(key: key);
 
   @override
   State<StartingScreen> createState() => _StartingScreenState();

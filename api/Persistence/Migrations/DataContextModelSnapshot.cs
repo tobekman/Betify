@@ -29,11 +29,11 @@ namespace Persistence.Migrations
                     b.Property<double>("Odds")
                         .HasColumnType("REAL");
 
+                    b.Property<int>("Result")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("Stake")
                         .HasColumnType("REAL");
-
-                    b.Property<bool>("isWin")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
