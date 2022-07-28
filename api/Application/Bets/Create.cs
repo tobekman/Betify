@@ -1,4 +1,6 @@
+using Application.Core;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -6,12 +8,20 @@ namespace Application.Bets;
 
 public class Create
 {
-    public class Command : IRequest
+    public class Command : IRequest<Result<Unit>>
     {
         public Bet Bet { get; set; }
     }
 
-    public class Handler : IRequestHandler<Command>
+    public class CommandValidator : AbstractValidator<Command>
+    {
+        public CommandValidator()
+        {
+            RuleFor(x => x.Bet).SetValidator(new BetValidator());
+        }
+    }
+
+    public class Handler : IRequestHandler<Command, Result<Unit>>
     {
         private readonly DataContext _context;
 
@@ -20,13 +30,18 @@ public class Create
             _context = context;
         }
         
-        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
         {
             _context.Bets.Add(request.Bet);
             
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync() > 0;
+
+            if (!result)
+            {
+                return Result<Unit>.Failure("Failed to create bet");
+            }
             
-            return Unit.Value;
+            return Result<Unit>.Sucess(Unit.Value);
         }
     }
 }
