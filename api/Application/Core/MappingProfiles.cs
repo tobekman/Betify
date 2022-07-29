@@ -1,5 +1,6 @@
 using AutoMapper;
 using Domain;
+using Domain.Users;
 
 namespace Application.Core;
 
