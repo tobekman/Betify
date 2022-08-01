@@ -1,4 +1,5 @@
 using Application.Bets;
+using Application.Core;
 using Domain;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -9,9 +10,9 @@ namespace API.Controllers;
 public class BetsController : BaseApiController
 {
     [HttpGet]
-    public async Task<IActionResult> GetBets()
+    public async Task<IActionResult> GetUserBets([FromQuery]BetParams param)
     {
-        return HandleResult(await Mediator.Send(new ListUserBets.Query()));
+        return HandlePagedResult(await Mediator.Send(new ListUserBets.Query{Params = param}));
     }
 
     [Authorize(Policy = "IsBetOwner")]
