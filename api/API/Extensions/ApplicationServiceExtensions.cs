@@ -1,5 +1,7 @@
 using Application.Bets;
 using Application.Core;
+using Application.Interfaces;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -22,6 +24,7 @@ public static class ApplicationServiceExtensions
         });
         services.AddMediatR(typeof(List.Handler).Assembly);
         services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+        services.AddScoped<IUserAccessor, UserAccessor>();
 
         return services;
     }

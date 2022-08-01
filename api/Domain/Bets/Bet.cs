@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Users;
 
 namespace Domain
 {
@@ -12,6 +13,7 @@ namespace Domain
         public double Stake { get; set; }
         public double Odds { get; set; }
         public BetResult Result { get; set; }
+        public AppUser? User { get; set; }
 
     }
 }

@@ -35,42 +35,48 @@ public class Seed
                     Date = DateTime.Now.AddMonths(-2),
                     Odds = 1.54,
                     Stake = 250,
-                    Result = BetResult.WIN
+                    Result = BetResult.WIN,
+                    User = await userManager.FindByEmailAsync("bob@test.com")
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-1),
                     Odds = 2.12,
                     Stake = 250,
-                    Result = BetResult.NONE
+                    Result = BetResult.NONE,
+                    User = await userManager.FindByEmailAsync("bob@test.com")
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-3),
                     Odds = 3.51,
                     Stake = 250,
-                    Result = BetResult.LOSS
+                    Result = BetResult.LOSS,
+                    User = await userManager.FindByEmailAsync("rebecca@test.com")
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-2),
                     Odds = 1.54,
                     Stake = 250,
-                    Result = BetResult.LOSS
+                    Result = BetResult.LOSS,
+                    User = await userManager.FindByEmailAsync("rebecca@test.com")
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-1),
                     Odds = 2.12,
                     Stake = 250,
-                    Result = BetResult.NONE
+                    Result = BetResult.NONE,
+                    User = await userManager.FindByEmailAsync("rebecca@test.com")
                 },
                 new Bet
                 {
                     Date = DateTime.Now.AddMonths(-3),
                     Odds = 3.51,
                     Stake = 250,
-                    Result = BetResult.NONE
+                    Result = BetResult.NONE,
+                    User = await userManager.FindByEmailAsync("rebecca@test.com")
                 }
             };
 

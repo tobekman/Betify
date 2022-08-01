@@ -1,3 +1,4 @@
+using Application.Bets;
 using AutoMapper;
 using Domain;
 using Domain.Users;
@@ -9,5 +10,7 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Bet, Bet>();
+        CreateMap<Bet, BetDto>();
+        CreateMap<AppUser, Profiles.Profile>();
     }
 }
