@@ -10,5 +10,4 @@ public class BetDto
     public double Stake { get; set; }
     public double Odds { get; set; }
     public BetResult Result { get; set; }
-    public Profile User { get; set; }
 }

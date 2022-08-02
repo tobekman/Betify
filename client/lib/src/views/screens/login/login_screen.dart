@@ -1,6 +1,9 @@
+import 'package:betify_client/register_services.dart';
+import 'package:betify_client/src/core/common/params/login_params.dart';
 import 'package:betify_client/src/core/config/routes/routes.dart';
 import 'package:betify_client/src/core/config/theme/color_constants.dart';
 import 'package:betify_client/src/core/config/theme/my_theme.dart';
+import 'package:betify_client/src/domain/use_cases/auth/login.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -12,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           style: MyTheme.primaryTextStyle(),
           keyboardType: TextInputType.emailAddress,
+          onSaved: (value) => setState(() => email = value!),
         ),
       );
 
@@ -78,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
           style: MyTheme.primaryTextStyle(),
           obscureText: true,
           keyboardType: TextInputType.visiblePassword,
+          onSaved: (value) => setState(() => password = value!),
         ),
       );
 
@@ -98,7 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
               MyTheme.buttonTextStyle(),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            _formKey.currentState!.save();
+            getIt<Login>().call(
+              params: LoginParams(email: email, password: password),
+            );
+          },
           child: const Text(
             'Sign In',
           ),
