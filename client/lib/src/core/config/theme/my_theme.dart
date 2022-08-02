@@ -10,7 +10,6 @@ class MyTheme {
       bodyText2: TextStyle(
         color: ColorConstants.primaryText,
       ),
-      
     ),
     scaffoldBackgroundColor: ColorConstants.background,
     appBarTheme: const AppBarTheme(
@@ -20,10 +19,53 @@ class MyTheme {
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: ColorConstants.appBar,
-        selectedItemColor: ColorConstants.primaryText,
-        unselectedItemColor: ColorConstants.secondaryText,
-        elevation: 0,
-        type: BottomNavigationBarType.fixed),
+      backgroundColor: ColorConstants.appBar,
+      selectedItemColor: ColorConstants.primaryText,
+      unselectedItemColor: ColorConstants.secondaryText,
+      elevation: 0,
+      type: BottomNavigationBarType.fixed,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      focusedBorder: myFormBorder(),
+      enabledBorder: myFormBorder(),
+      labelStyle: const TextStyle(color: ColorConstants.primaryText),
+      border: const OutlineInputBorder(),
+      errorBorder: myErrorFormBorder(),
+      focusedErrorBorder: myErrorFormBorder(),
+      errorStyle: const TextStyle(overflow: TextOverflow.clip),
+    ),
   );
+
+  static TextStyle primaryTextStyle() {
+    return const TextStyle(
+      color: ColorConstants.primaryText,
+      fontFamily: 'NotoSans'
+    );
+  }
+
+  static TextStyle headerTextStyle() {
+    return const TextStyle(
+        color: ColorConstants.primaryText,
+        fontWeight: FontWeight.w700,
+        fontSize: 24,
+        fontFamily: 'NexaDemo');
+  }
+
+  static OutlineInputBorder myFormBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(
+        color: ColorConstants.secondaryText,
+      ),
+    );
+  }
+
+  static OutlineInputBorder myErrorFormBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(
+        color: Colors.red,
+      ),
+    );
+  }
 }
