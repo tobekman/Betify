@@ -33,39 +33,52 @@ class MyTheme {
       errorBorder: myErrorFormBorder(),
       focusedErrorBorder: myErrorFormBorder(),
       errorStyle: const TextStyle(overflow: TextOverflow.clip),
+      filled: true,
+      fillColor: ColorConstants.appBar,
     ),
   );
 
-  static TextStyle primaryTextStyle() {
-    return const TextStyle(
-      color: ColorConstants.primaryText,
-      fontFamily: 'NotoSans'
-    );
-  }
+  static TextStyle primaryTextStyle() => const TextStyle(
+        color: ColorConstants.primaryText,
+        fontFamily: 'NotoSans',
+        fontSize: 14,
+      );
 
-  static TextStyle headerTextStyle() {
-    return const TextStyle(
+  static TextStyle headerTextStyle() => const TextStyle(
         color: ColorConstants.primaryText,
         fontWeight: FontWeight.w700,
-        fontSize: 24,
-        fontFamily: 'NexaDemo');
-  }
+        fontSize: 36,
+        fontFamily: 'NexaDemo',
+      );
 
-  static OutlineInputBorder myFormBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(
-        color: ColorConstants.secondaryText,
-      ),
-    );
-  }
+  static TextStyle bodyTextStyle() => const TextStyle(
+        color: ColorConstants.primaryText,
+        fontFamily: 'NotoSerif',
+      );
+      static TextStyle linkTextStyle() => const TextStyle(
+        color: ColorConstants.primaryLight,
+        fontFamily: 'NotoSans',
+        fontWeight: FontWeight.w700,
+      );
 
-  static OutlineInputBorder myErrorFormBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(
-        color: Colors.red,
-      ),
-    );
-  }
+  static TextStyle buttonTextStyle() => const TextStyle(
+        color: ColorConstants.primaryText,
+        fontFamily: 'NotoSans',
+        fontSize: 18,
+        fontWeight: FontWeight.w700
+      );
+
+  static OutlineInputBorder myFormBorder() => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        // borderSide: const BorderSide(
+        //   color: ColorConstants.secondaryText,
+        // ),
+      );
+
+  static OutlineInputBorder myErrorFormBorder() => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        // borderSide: const BorderSide(
+        //   color: Colors.red,
+        // ),
+      );
 }

@@ -5,4 +5,6 @@ class ColorConstants {
   static const appBar = Color(0xff19191b);
   static const primaryText = Color(0xfffefefe);
   static const secondaryText = Color(0xff616163);
+  static const primary = Color(0xff39586f);
+  static const primaryLight = Color(0xff608dae);
 }
