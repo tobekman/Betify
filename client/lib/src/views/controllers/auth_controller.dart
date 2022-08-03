@@ -16,4 +16,9 @@ class AuthController {
     }
     return response;
   }
+
+  void logout() {
+    var box = Hive.box('userBox');
+    box.clear();
+  }
 }

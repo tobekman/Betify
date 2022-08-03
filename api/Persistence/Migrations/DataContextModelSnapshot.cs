@@ -42,7 +42,34 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bets", (string)null);
+                    b.ToTable("Bets");
+                });
+
+            modelBuilder.Entity("Domain.Tokens.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("RefreshToken");
                 });
 
             modelBuilder.Entity("Domain.Users.AppUser", b =>
@@ -250,6 +277,17 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Tokens.RefreshToken", b =>
+                {
+                    b.HasOne("Domain.Users.AppUser", "AppUser")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -304,6 +342,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Users.AppUser", b =>
                 {
                     b.Navigation("Bets");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

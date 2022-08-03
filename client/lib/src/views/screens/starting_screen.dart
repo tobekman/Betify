@@ -1,4 +1,6 @@
+import 'package:betify_client/register_services.dart';
 import 'package:betify_client/src/core/config/routes/routes.dart';
+import 'package:betify_client/src/views/controllers/auth_controller.dart';
 import 'package:betify_client/src/views/screens/bets/bets_screen.dart';
 import 'package:betify_client/src/views/screens/profile/profile_screen.dart';
 import 'package:betify_client/src/views/screens/stats/stats_screen.dart';
@@ -40,8 +42,7 @@ class _StartingScreenState extends State<StartingScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              var box = Hive.box('userBox');
-              box.clear();
+              getIt<AuthController>().logout();
               Navigator.pushReplacementNamed(context, Routes.loginScreen);
             },
             icon: const Icon(Icons.logout),
