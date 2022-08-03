@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:betify_client/src/views/controllers/auth_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
@@ -16,9 +17,12 @@ Future<void> initServices() async {
   getIt.registerLazySingleton<AppConfig>(
       () => AppConfig(baseApiUrl: configData['BASE_API_URL']));
 
-  //Service
+  //Services
   getIt.registerLazySingleton<AuthRepository>(() => AuthService());
 
-  //Use case
+  //Use cases
   getIt.registerLazySingleton<Login>(() => Login(getIt()));
+
+  //Controllers
+  getIt.registerLazySingleton<AuthController>(() => AuthController());
 }

@@ -41,8 +41,8 @@ class _StartingScreenState extends State<StartingScreen> {
           IconButton(
             onPressed: () {
               var box = Hive.box('userBox');
-              box.delete(0);
-               Navigator.pushReplacementNamed(context, Routes.loginScreen);
+              box.clear();
+              Navigator.pushReplacementNamed(context, Routes.loginScreen);
             },
             icon: const Icon(Icons.logout),
           ),

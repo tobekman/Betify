@@ -6,6 +6,7 @@ import 'package:betify_client/src/core/config/theme/color_constants.dart';
 import 'package:betify_client/src/core/config/theme/my_theme.dart';
 import 'package:betify_client/src/domain/models/users/storage/logged_in_user.dart';
 import 'package:betify_client/src/domain/use_cases/auth/login.dart';
+import 'package:betify_client/src/views/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -110,15 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
               MyTheme.buttonTextStyle(),
             ),
           ),
-          onPressed: () async {
+          onPressed: () {
             _formKey.currentState!.save();
-            final response = await getIt<Login>().call(
-              params: LoginParams(email: email, password: password),
-            );
-            if (response is DataSuccess) {
-              Hive.box('userBox').add(LoggedInUser.fromUser(response.data!));
-              Navigator.pushReplacementNamed(context, Routes.startingScreen);
-            }
+            _login();
           },
           child: const Text(
             'Sign In',
@@ -155,4 +150,17 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ],
       );
+
+  void _login() async {
+    final response = await getIt<AuthController>().login(
+      LoginParams(
+        email: email,
+        password: password,
+      ),
+    );
+    if (response is DataSuccess) {
+      Hive.box('userBox').add(LoggedInUser.fromUser(response.data!));
+      Navigator.pushReplacementNamed(context, Routes.startingScreen);
+    }
+  }
 }
