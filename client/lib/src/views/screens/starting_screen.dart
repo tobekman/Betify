@@ -1,8 +1,10 @@
+import 'package:betify_client/src/core/config/routes/routes.dart';
 import 'package:betify_client/src/views/screens/bets/bets_screen.dart';
 import 'package:betify_client/src/views/screens/profile/profile_screen.dart';
 import 'package:betify_client/src/views/screens/stats/stats_screen.dart';
 import 'package:betify_client/src/views/screens/upcoming/upcoming_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'home/home_screen.dart';
 
@@ -35,6 +37,16 @@ class _StartingScreenState extends State<StartingScreen> {
       appBar: AppBar(
         elevation: 0,
         title: const Text('Betify'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              var box = Hive.box('userBox');
+              box.delete(0);
+               Navigator.pushReplacementNamed(context, Routes.loginScreen);
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
