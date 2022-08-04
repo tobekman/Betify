@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../views/screens/home/home_screen.dart';
-import '../../../views/screens/login/login_screen.dart';
-import '../../../views/screens/login/register/register_screen.dart';
-import '../../../views/screens/starting_screen.dart';
+import '../../../ui/screens/home/home_screen.dart';
+import '../../../ui/screens/login/login_screen.dart';
+import '../../../ui/screens/login/register/register_screen.dart';
+import '../../../ui/screens/starting_screen.dart';
 import 'routes.dart';
 
 Route<dynamic> controller(RouteSettings settings) {

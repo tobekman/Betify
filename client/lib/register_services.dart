@@ -7,7 +7,7 @@ import 'src/data/services/auth/auth_service.dart';
 import 'src/domain/models/config/app_config.dart';
 import 'src/domain/repositories/auth_repository.dart';
 import 'src/domain/use_cases/auth/login.dart';
-import 'src/views/controllers/auth_controller.dart';
+import 'src/ui/controllers/auth_controller.dart';
 
 final getIt = GetIt.instance;
 
