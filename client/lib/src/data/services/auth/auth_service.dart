@@ -13,8 +13,8 @@ import '../../../domain/repositories/auth_repository.dart';
 class AuthService implements AuthRepository {
   @override
   Future<DataState<User>> loginUser(LoginParams params) async {
-    var url = Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/account/login');
-    var body = LoginParams(
+    final url = Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/account/login');
+    final body = LoginParams(
       email: params.email,
       password: params.password,
     ).toJson();
@@ -33,19 +33,47 @@ class AuthService implements AuthRepository {
 
   @override
   Future<DataState<User>> registerUser(RegisterParams params) async {
-    // TODO: implement registerUser
-    throw UnimplementedError();
+    final url =
+        Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/account/register');
+    final body = RegisterParams(
+      displayName: params.displayName,
+      username: params.username,
+      email: params.email,
+      password: params.password,
+    ).toJson();
+
+    try {
+      var response = await http.post(
+        url,
+        body: body,
+        headers: {'Content-Type': 'application/json'},
+      );
+      final user = _returnResponse(response);
+      return DataSuccess(user);
+    } on Exception catch (e) {
+      return DataFailed(e);
+    }
   }
 
   dynamic _returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
         return User.fromJson(response.body);
+      case 400:
+        throw BadRequestException(
+          ErrorResponse(
+            status: 400,
+            title: response.body,
+            traceId: '',
+            type: ''
+          ),
+          
+        );
       case 401:
         {
           final error = ErrorResponse.fromJson(response.body);
           throw UnauthorisedException(
-              error, 'Please check your email and password');
+              error);
         }
     }
   }

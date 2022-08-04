@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
               Navigator.pushNamed(context, Routes.registerScreen);
             },
             child: Text(
-              ' Register Now',
+              ' Create account',
               style: MyTheme.linkTextStyle(),
             ),
           ),

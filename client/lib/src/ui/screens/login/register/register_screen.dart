@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../../register_services.dart';
 import '../../../../core/common/data_state.dart';
 import '../../../../core/common/mixins/validation_mixin.dart';
-import '../../../../core/common/params/login_params.dart';
-import '../../../../core/config/routes/routes.dart';
+import '../../../../core/common/params/register_params.dart';
 import '../../../../core/config/theme/color_constants.dart';
 import '../../../../core/config/theme/my_theme.dart';
-import '../../../../domain/models/users/storage/logged_in_user.dart';
 import '../../../controllers/auth_controller.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -20,24 +17,25 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
-  String email = '';
-  String password = '';
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final repeatPassword = TextEditingController();
+  final displayName = TextEditingController();
+  final username = TextEditingController();
   bool passwordIsVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorConstants.background,
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.sports,
-              color: ColorConstants.primaryText,
-              size: 100,
-            ),
             Text(
-              'BETIFY',
+              'Create an account',
               style: MyTheme.headerTextStyle(),
             ),
             const SizedBox(height: 50),
@@ -52,13 +50,25 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
                   const SizedBox(height: 10),
                   SizedBox(
                     height: 85,
+                    child: _displayNameFormField(),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 85,
+                    child: _usernameFormField(),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 85,
                     child: _passwordFormField(),
                   ),
-                  _forgotPassword(),
-                  const SizedBox(height: 35),
-                  _loginButton(),
-                  const SizedBox(height: 35),
-                  _register(),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 85,
+                    child: _repeatPasswordFormField(),
+                  ),
+                  const SizedBox(height: 10),
+                  _registerButton(),
                 ],
               ),
             ),
@@ -68,9 +78,42 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
     );
   }
 
+  Widget _displayNameFormField() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: TextFormField(
+          controller: displayName,
+          decoration: const InputDecoration(
+            labelText: 'Display name',
+            prefixIcon: Icon(
+              Icons.mail,
+              color: ColorConstants.primaryText,
+            ),
+          ),
+          style: MyTheme.primaryTextStyle(),
+          validator: (value) => validateDisplayName(value!),
+        ),
+      );
+
+  Widget _usernameFormField() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: TextFormField(
+          controller: username,
+          decoration: const InputDecoration(
+            labelText: 'Username',
+            prefixIcon: Icon(
+              Icons.mail,
+              color: ColorConstants.primaryText,
+            ),
+          ),
+          style: MyTheme.primaryTextStyle(),
+          validator: (value) => validateUsername(value!),
+        ),
+      );
+
   Widget _emailFormField() => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: TextFormField(
+          controller: email,
           decoration: const InputDecoration(
             labelText: 'Email',
             prefixIcon: Icon(
@@ -81,13 +124,13 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
           style: MyTheme.primaryTextStyle(),
           keyboardType: TextInputType.emailAddress,
           validator: (value) => validateEmail(value!),
-          onSaved: (value) => setState(() => email = value!),
         ),
       );
 
   Widget _passwordFormField() => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: TextFormField(
+          controller: password,
           decoration: InputDecoration(
             labelText: 'Password',
             prefixIcon: const Icon(
@@ -101,12 +144,32 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
           style: MyTheme.primaryTextStyle(),
           obscureText: passwordIsVisible ? false : true,
           keyboardType: TextInputType.visiblePassword,
-          validator: (value) => validateFieldEmpty(value!),
-          onSaved: (value) => setState(() => password = value!),
+          validator: (value) => validatePassword(value!),
         ),
       );
 
-  Widget _loginButton() => Padding(
+  Widget _repeatPasswordFormField() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: TextFormField(
+          controller: repeatPassword,
+          decoration: InputDecoration(
+            labelText: 'Repeat password',
+            prefixIcon: const Icon(
+              Icons.lock,
+              color: ColorConstants.primaryText,
+            ),
+            suffixIcon: !passwordIsVisible
+                ? _passwordToggleButton(Icons.visibility)
+                : _passwordToggleButton(Icons.visibility_off),
+          ),
+          style: MyTheme.primaryTextStyle(),
+          obscureText: passwordIsVisible ? false : true,
+          keyboardType: TextInputType.visiblePassword,
+          validator: (value) => validateRepeatPassword(value!, password.text),
+        ),
+      );
+
+  Widget _registerButton() => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: ElevatedButton(
           style: ButtonStyle(
@@ -127,57 +190,25 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
             final isValid = _formKey.currentState!.validate();
             if (isValid) {
               _formKey.currentState!.save();
-              _login();
+              _register();
             }
           },
           child: const Text(
-            'Sign In',
+            'Sign Up',
           ),
         ),
       );
 
-  Widget _forgotPassword() => Padding(
-        padding: const EdgeInsets.only(right: 25),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            'Forgot Password?',
-            style: MyTheme.linkTextStyle(),
-          ),
-        ),
-      );
-
-  Widget _register() => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Not a member?',
-            style: MyTheme.primaryTextStyle(),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, Routes.registerScreen);
-            },
-            child: Text(
-              ' Register Now',
-              style: MyTheme.linkTextStyle(),
-            ),
-          ),
-        ],
-      );
-
-  SnackBar _loginSnackbar(String message) => SnackBar(
+  SnackBar _registerSnackbar(String message) => SnackBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              message,
-              style: const TextStyle(fontSize: 15),
-            ),
-          ],
+        content: Text(
+          message,
+          style: const TextStyle(
+            fontSize: 15,
+            overflow: TextOverflow.clip
+          ),
         ),
         duration: const Duration(seconds: 3),
         backgroundColor: ColorConstants.appBar,
@@ -195,20 +226,25 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
         ),
       );
 
-  void _login() async {
-    final response = await getIt<AuthController>().login(
-      LoginParams(
-        email: email,
-        password: password,
+  void _register() async {
+    final response = await getIt<AuthController>().register(
+      RegisterParams(
+        displayName: displayName.text,
+        username: username.text,
+        email: email.text,
+        password: password.text,
       ),
     );
+
     if (response is DataSuccess) {
-      Hive.box('userBox').add(LoggedInUser.fromUser(response.data!));
-      Navigator.pushReplacementNamed(context, Routes.startingScreen);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(_registerSnackbar('Account created'));
+      Navigator.pop(context);
     }
+
     if (response is DataFailed) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(_loginSnackbar(response.error.toString()));
+          .showSnackBar(_registerSnackbar(response.error.toString()));
     }
   }
 

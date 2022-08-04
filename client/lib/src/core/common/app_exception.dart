@@ -2,44 +2,39 @@ import 'error_response.dart';
 
 class AppException implements Exception {
   final ErrorResponse error;
-  final String message;
 
-  AppException({required this.error, required this.message});
+  AppException({required this.error});
 
   @override
   String toString() {
-    return 'Status: ${error.status} - ${error.title}\n$message';
+    return 'Status: ${error.status} - ${error.title}';
   }
 }
 
 class FetchDataException extends AppException {
-  FetchDataException(error, message)
+  FetchDataException(error)
       : super(
           error: error,
-          message: message,
         );
 }
 
 class BadRequestException extends AppException {
-  BadRequestException(error, message)
+  BadRequestException(error)
       : super(
           error: error,
-          message: message,
         );
 }
 
 class UnauthorisedException extends AppException {
-  UnauthorisedException(error, message)
+  UnauthorisedException(error)
       : super(
           error: error,
-          message: message,
         );
 }
 
 class InvalidInputException extends AppException {
-  InvalidInputException(error, message)
+  InvalidInputException(error)
       : super(
           error: error,
-          message: message,
         );
 }
