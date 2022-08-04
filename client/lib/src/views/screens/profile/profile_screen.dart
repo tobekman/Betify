@@ -1,6 +1,7 @@
-import 'package:betify_client/src/domain/models/users/storage/logged_in_user.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../../../domain/models/users/storage/logged_in_user.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

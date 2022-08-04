@@ -1,4 +1,4 @@
-import 'package:betify_client/src/core/common/error_response.dart';
+import 'error_response.dart';
 
 class AppException implements Exception {
   final ErrorResponse error;

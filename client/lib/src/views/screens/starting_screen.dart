@@ -1,14 +1,13 @@
-import 'package:betify_client/register_services.dart';
-import 'package:betify_client/src/core/config/routes/routes.dart';
-import 'package:betify_client/src/views/controllers/auth_controller.dart';
-import 'package:betify_client/src/views/screens/bets/bets_screen.dart';
-import 'package:betify_client/src/views/screens/profile/profile_screen.dart';
-import 'package:betify_client/src/views/screens/stats/stats_screen.dart';
-import 'package:betify_client/src/views/screens/upcoming/upcoming_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../register_services.dart';
+import '../../core/config/routes/routes.dart';
+import '../controllers/auth_controller.dart';
+import 'bets/bets_screen.dart';
 import 'home/home_screen.dart';
+import 'profile/profile_screen.dart';
+import 'stats/stats_screen.dart';
+import 'upcoming/upcoming_screen.dart';
 
 class StartingScreen extends StatefulWidget {
   const StartingScreen({Key? key}) : super(key: key);

@@ -1,10 +1,11 @@
-import 'package:betify_client/register_services.dart';
-import 'package:betify_client/src/core/common/data_state.dart';
-import 'package:betify_client/src/core/common/params/login_params.dart';
-import 'package:betify_client/src/domain/models/users/storage/logged_in_user.dart';
-import 'package:betify_client/src/domain/models/users/user.dart';
-import 'package:betify_client/src/domain/use_cases/auth/login.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../../../register_services.dart';
+import '../../core/common/data_state.dart';
+import '../../core/common/params/login_params.dart';
+import '../../domain/models/users/storage/logged_in_user.dart';
+import '../../domain/models/users/user.dart';
+import '../../domain/use_cases/auth/login.dart';
 
 class AuthController {
   Future<DataState<User>> login(LoginParams params) async {

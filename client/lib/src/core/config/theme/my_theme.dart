@@ -1,5 +1,6 @@
-import 'package:betify_client/src/core/config/theme/color_constants.dart';
 import 'package:flutter/material.dart';
+
+import 'color_constants.dart';
 
 class MyTheme {
   static final ThemeData theme = ThemeData(

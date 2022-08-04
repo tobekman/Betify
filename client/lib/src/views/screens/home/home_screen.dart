@@ -1,4 +1,3 @@
-import 'package:betify_client/src/core/config/theme/color_constants.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

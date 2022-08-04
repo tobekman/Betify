@@ -1,16 +1,14 @@
-import 'dart:io';
-
-import 'package:betify_client/register_services.dart';
-import 'package:betify_client/src/core/common/app_exception.dart';
-import 'package:betify_client/src/core/common/error_response.dart';
-import 'package:betify_client/src/domain/models/config/app_config.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:betify_client/src/domain/models/users/user.dart';
-import 'package:betify_client/src/core/common/params/register_params.dart';
-import 'package:betify_client/src/core/common/params/login_params.dart';
-import 'package:betify_client/src/core/common/data_state.dart';
-import 'package:betify_client/src/domain/repositories/auth_repository.dart';
+import '../../../../register_services.dart';
+import '../../../core/common/app_exception.dart';
+import '../../../core/common/data_state.dart';
+import '../../../core/common/error_response.dart';
+import '../../../core/common/params/login_params.dart';
+import '../../../core/common/params/register_params.dart';
+import '../../../domain/models/config/app_config.dart';
+import '../../../domain/models/users/user.dart';
+import '../../../domain/repositories/auth_repository.dart';
 
 class AuthService implements AuthRepository {
   @override

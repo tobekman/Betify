@@ -1,9 +1,10 @@
-import 'package:betify_client/src/core/config/routes/routes.dart';
-import 'package:betify_client/src/views/screens/home/home_screen.dart';
-import 'package:betify_client/src/views/screens/login/login_screen.dart';
-import 'package:betify_client/src/views/screens/login/register/register_screen.dart';
-import 'package:betify_client/src/views/screens/starting_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../../../views/screens/home/home_screen.dart';
+import '../../../views/screens/login/login_screen.dart';
+import '../../../views/screens/login/register/register_screen.dart';
+import '../../../views/screens/starting_screen.dart';
+import 'routes.dart';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
