@@ -45,7 +45,9 @@ class _StartingScreenState extends State<StartingScreen> {
               getIt<AuthController>().logout();
               Navigator.pushReplacementNamed(context, Routes.loginScreen);
             },
-            icon: const Icon(Icons.logout),
+            icon: const Icon(
+              Icons.logout,
+            ),
           ),
         ],
       ),

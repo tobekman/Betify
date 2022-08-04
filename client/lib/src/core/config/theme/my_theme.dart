@@ -32,7 +32,11 @@ class MyTheme {
       border: const OutlineInputBorder(),
       errorBorder: myErrorFormBorder(),
       focusedErrorBorder: myErrorFormBorder(),
-      errorStyle: const TextStyle(overflow: TextOverflow.clip),
+      errorStyle: const TextStyle(
+        color: ColorConstants.primaryLight,
+        overflow: TextOverflow.clip,
+        
+      ),
       filled: true,
       fillColor: ColorConstants.appBar,
     ),
@@ -55,18 +59,17 @@ class MyTheme {
         color: ColorConstants.primaryText,
         fontFamily: 'NotoSerif',
       );
-      static TextStyle linkTextStyle() => const TextStyle(
+  static TextStyle linkTextStyle() => const TextStyle(
         color: ColorConstants.primaryLight,
         fontFamily: 'NotoSans',
         fontWeight: FontWeight.w700,
       );
 
   static TextStyle buttonTextStyle() => const TextStyle(
-        color: ColorConstants.primaryText,
-        fontFamily: 'NotoSans',
-        fontSize: 18,
-        fontWeight: FontWeight.w700
-      );
+      color: ColorConstants.primaryText,
+      fontFamily: 'NotoSans',
+      fontSize: 18,
+      fontWeight: FontWeight.w700);
 
   static OutlineInputBorder myFormBorder() => OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),

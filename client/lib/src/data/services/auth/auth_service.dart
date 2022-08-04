@@ -26,11 +26,9 @@ class AuthService implements AuthRepository {
         body: body,
         headers: {'Content-Type': 'application/json'},
       );
-      print(response.body);
       final user = _returnResponse(response);
       return DataSuccess(user);
     } on Exception catch (e) {
-      print(e);
       return DataFailed(e);
     }
   }
@@ -48,7 +46,8 @@ class AuthService implements AuthRepository {
       case 401:
         {
           final error = ErrorResponse.fromJson(response.body);
-          throw UnauthorisedException(error);
+          throw UnauthorisedException(
+              error, 'Please check your email and password');
         }
     }
   }
