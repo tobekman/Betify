@@ -23,7 +23,14 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("BetType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Odds")
@@ -43,6 +50,31 @@ namespace Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bets");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Bet");
+                });
+
+            modelBuilder.Entity("Domain.Teams.Team", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("League")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("Domain.Tokens.RefreshToken", b =>
@@ -268,6 +300,65 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Bets.BetTypes.OneXTwo", b =>
+                {
+                    b.HasBaseType("Domain.Bet");
+
+                    b.Property<Guid>("AwayTeamId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte>("AwayTeamScore")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("HomeTeamId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte>("HomeTeamScore")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OneXTwoPrediction")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("AwayTeamId");
+
+                    b.HasIndex("HomeTeamId");
+
+                    b.HasDiscriminator().HasValue("OneXTwo");
+                });
+
+            modelBuilder.Entity("Domain.Bets.BetTypes.OverUnder", b =>
+                {
+                    b.HasBaseType("Domain.Bet");
+
+                    b.Property<byte>("AmountOfGoals")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("AwayTeamId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("OverUnder_AwayTeamId");
+
+                    b.Property<byte>("AwayTeamScore")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("OverUnder_AwayTeamScore");
+
+                    b.Property<Guid>("HomeTeamId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("OverUnder_HomeTeamId");
+
+                    b.Property<byte>("HomeTeamScore")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("OverUnder_HomeTeamScore");
+
+                    b.Property<int>("OverUnderPrediction")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("AwayTeamId");
+
+                    b.HasIndex("HomeTeamId");
+
+                    b.HasDiscriminator().HasValue("OverUnder");
+                });
+
             modelBuilder.Entity("Domain.Bet", b =>
                 {
                     b.HasOne("Domain.Users.AppUser", "User")
@@ -337,6 +428,44 @@ namespace Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Bets.BetTypes.OneXTwo", b =>
+                {
+                    b.HasOne("Domain.Teams.Team", "AwayTeam")
+                        .WithMany()
+                        .HasForeignKey("AwayTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Teams.Team", "HomeTeam")
+                        .WithMany()
+                        .HasForeignKey("HomeTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AwayTeam");
+
+                    b.Navigation("HomeTeam");
+                });
+
+            modelBuilder.Entity("Domain.Bets.BetTypes.OverUnder", b =>
+                {
+                    b.HasOne("Domain.Teams.Team", "AwayTeam")
+                        .WithMany()
+                        .HasForeignKey("AwayTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Teams.Team", "HomeTeam")
+                        .WithMany()
+                        .HasForeignKey("HomeTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AwayTeam");
+
+                    b.Navigation("HomeTeam");
                 });
 
             modelBuilder.Entity("Domain.Users.AppUser", b =>

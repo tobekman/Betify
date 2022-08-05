@@ -1,3 +1,4 @@
+using Application.Bets.DTO;
 using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;

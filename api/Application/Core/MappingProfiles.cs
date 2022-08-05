@@ -1,4 +1,5 @@
 using Application.Bets;
+using Application.Bets.DTO;
 using AutoMapper;
 using Domain;
 using Domain.Users;

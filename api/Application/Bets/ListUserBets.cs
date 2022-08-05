@@ -1,3 +1,4 @@
+using Application.Bets.DTO;
 using Application.Core;
 using Application.Interfaces;
 using AutoMapper;
@@ -36,7 +37,7 @@ public class ListUserBets
                 .Reverse()
                 .ProjectTo<BetDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
-
+            
             return Result<PagedList<BetDto>>.Sucess(
                 await PagedList<BetDto>.CreateAsync(query, 
                     request.Params.PageNumber,

@@ -1,7 +1,6 @@
-using Application.Profiles;
 using Domain;
 
-namespace Application.Bets;
+namespace Application.Bets.DTO;
 
 public class BetDto
 {

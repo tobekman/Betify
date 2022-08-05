@@ -1,13 +1,13 @@
 using Application.Bets;
-using Application.Core;
+using Application.Bets.OneXTwos;
 using Domain;
-using Domain.Users;
+using Domain.Bets.BetTypes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace API.Controllers.Bets;
 
-public class BetsController : BaseApiController
+public class OneXTwoController : BaseApiController
 {
     [HttpGet]
     public async Task<IActionResult> GetUserBets([FromQuery]BetParams param)
@@ -23,10 +23,10 @@ public class BetsController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBet(Bet bet)
+    public async Task<IActionResult> CreateBet(OneXTwo bet)
     {
         bet.Date = DateTime.Now;
-        return HandleResult(await Mediator.Send(new Create.Command{Bet = bet}));
+        return HandleResult(await Mediator.Send(new CreateOneXTwo.Command{Bet = bet}));
     }
     
     [Authorize(Policy = "IsBetOwner")]
@@ -43,5 +43,4 @@ public class BetsController : BaseApiController
     {
         return HandleResult(await Mediator.Send(new Delete.Command{Id = id}));
     }
-
 }

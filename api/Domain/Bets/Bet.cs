@@ -14,6 +14,7 @@ namespace Domain
         public double Stake { get; set; }
         public double Odds { get; set; }
         public BetResult Result { get; set; }
+        public BetType BetType { get; set; }
         public AppUser? User { get; set; }
 
     }

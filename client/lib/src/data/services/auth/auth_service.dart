@@ -62,18 +62,11 @@ class AuthService implements AuthRepository {
       case 400:
         throw BadRequestException(
           ErrorResponse(
-            status: 400,
-            title: response.body,
-            traceId: '',
-            type: ''
-          ),
-          
+              status: 400, title: response.body, traceId: '', type: ''),
         );
       case 401:
         {
-          final error = ErrorResponse.fromJson(response.body);
-          throw UnauthorisedException(
-              error);
+          throw UnauthorisedException(ErrorResponse.fromJson(response.body));
         }
     }
   }
