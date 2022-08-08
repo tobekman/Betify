@@ -22,7 +22,7 @@ class MyTheme {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: ColorConstants.appBar,
       selectedItemColor: ColorConstants.primaryText,
-      unselectedItemColor: ColorConstants.secondaryText,
+      unselectedItemColor: ColorConstants.primary,
       elevation: 0,
       type: BottomNavigationBarType.fixed,
     ),
@@ -36,7 +36,6 @@ class MyTheme {
       errorStyle: const TextStyle(
         color: ColorConstants.primaryLight,
         overflow: TextOverflow.clip,
-        
       ),
       filled: true,
       fillColor: ColorConstants.appBar,

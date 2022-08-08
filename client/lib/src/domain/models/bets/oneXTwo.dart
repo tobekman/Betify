@@ -5,8 +5,8 @@ import '../teams/team.dart';
 
 class OneXTwo {
   final String date;
-  final int stake;
-  final int odds;
+  final num stake;
+  final num odds;
   final int result;
   final int betType;
   final Team homeTeam;
@@ -27,10 +27,12 @@ class OneXTwo {
     required this.awayTeamScore,
   });
 
+  
+
   OneXTwo copyWith({
     String? date,
-    int? stake,
-    int? odds,
+    num? stake,
+    num? odds,
     int? result,
     int? betType,
     Team? homeTeam,
@@ -71,8 +73,8 @@ class OneXTwo {
   factory OneXTwo.fromMap(Map<String, dynamic> map) {
     return OneXTwo(
       date: map['date'] as String,
-      stake: map['stake'] as int,
-      odds: map['odds'] as int,
+      stake: map['stake'] as num,
+      odds: map['odds'] as num,
       result: map['result'] as int,
       betType: map['betType'] as int,
       homeTeam: Team.fromMap(map['homeTeam'] as Map<String,dynamic>),
