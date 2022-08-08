@@ -1,40 +1,43 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class Team {
-  final String Name;
-  final String League;
-  final String Country;
+  final String name;
+  final String league;
+  final String country;
   Team({
-    required this.Name,
-    required this.League,
-    required this.Country,
+    required this.name,
+    required this.league,
+    required this.country,
   });
 
+  
+
   Team copyWith({
-    String? Name,
-    String? League,
-    String? Country,
+    String? name,
+    String? league,
+    String? country,
   }) {
     return Team(
-      Name: Name ?? this.Name,
-      League: League ?? this.League,
-      Country: Country ?? this.Country,
+      name: name ?? this.name,
+      league: league ?? this.league,
+      country: country ?? this.country,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'Name': Name,
-      'League': League,
-      'Country': Country,
+      'name': name,
+      'league': league,
+      'country': country,
     };
   }
 
   factory Team.fromMap(Map<String, dynamic> map) {
     return Team(
-      Name: map['Name'] as String,
-      League: map['League'] as String,
-      Country: map['Country'] as String,
+      name: map['name'] as String,
+      league: map['league'] as String,
+      country: map['country'] as String,
     );
   }
 
@@ -43,18 +46,18 @@ class Team {
   factory Team.fromJson(String source) => Team.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Team(Name: $Name, League: $League, Country: $Country)';
+  String toString() => 'Team(name: $name, league: $league, country: $country)';
 
   @override
   bool operator ==(covariant Team other) {
     if (identical(this, other)) return true;
   
     return 
-      other.Name == Name &&
-      other.League == League &&
-      other.Country == Country;
+      other.name == name &&
+      other.league == league &&
+      other.country == country;
   }
 
   @override
-  int get hashCode => Name.hashCode ^ League.hashCode ^ Country.hashCode;
+  int get hashCode => name.hashCode ^ league.hashCode ^ country.hashCode;
 }

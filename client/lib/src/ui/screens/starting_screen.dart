@@ -1,4 +1,6 @@
+import 'package:betify_client/src/ui/controllers/bets_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../register_services.dart';
 import '../../core/config/routes/routes.dart';
@@ -9,14 +11,14 @@ import 'profile/profile_screen.dart';
 import 'stats/stats_screen.dart';
 import 'upcoming/upcoming_screen.dart';
 
-class StartingScreen extends StatefulWidget {
+class StartingScreen extends ConsumerStatefulWidget {
   const StartingScreen({Key? key}) : super(key: key);
 
   @override
-  State<StartingScreen> createState() => _StartingScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _StartingScreenState();
 }
 
-class _StartingScreenState extends State<StartingScreen> {
+class _StartingScreenState extends ConsumerState<StartingScreen> {
   int _currentIndex = 0;
   final List _screens = const [
     HomeScreen(),
@@ -30,6 +32,9 @@ class _StartingScreenState extends State<StartingScreen> {
     setState(() {
       _currentIndex = value;
     });
+    if (value == 1) {
+      ref.watch(betsProvider.notifier).loadBets();
+    }
   }
 
   @override

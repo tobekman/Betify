@@ -1,8 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import '../teams/team.dart';
 
 class OneXTwo {
+  final String date;
   final int stake;
   final int odds;
   final int result;
@@ -13,6 +15,7 @@ class OneXTwo {
   final int homeTeamScore;
   final int awayTeamScore;
   OneXTwo({
+    required this.date,
     required this.stake,
     required this.odds,
     required this.result,
@@ -25,6 +28,7 @@ class OneXTwo {
   });
 
   OneXTwo copyWith({
+    String? date,
     int? stake,
     int? odds,
     int? result,
@@ -36,6 +40,7 @@ class OneXTwo {
     int? awayTeamScore,
   }) {
     return OneXTwo(
+      date: date ?? this.date,
       stake: stake ?? this.stake,
       odds: odds ?? this.odds,
       result: result ?? this.result,
@@ -50,6 +55,7 @@ class OneXTwo {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'date': date,
       'stake': stake,
       'odds': odds,
       'result': result,
@@ -64,15 +70,16 @@ class OneXTwo {
 
   factory OneXTwo.fromMap(Map<String, dynamic> map) {
     return OneXTwo(
-      stake: map['stake'].toInt() as int,
-      odds: map['odds'].toInt() as int,
-      result: map['result'].toInt() as int,
-      betType: map['betType'].toInt() as int,
+      date: map['date'] as String,
+      stake: map['stake'] as int,
+      odds: map['odds'] as int,
+      result: map['result'] as int,
+      betType: map['betType'] as int,
       homeTeam: Team.fromMap(map['homeTeam'] as Map<String,dynamic>),
       awayTeam: Team.fromMap(map['awayTeam'] as Map<String,dynamic>),
-      prediction: map['prediction'].toInt() as int,
-      homeTeamScore: map['homeTeamScore'].toInt() as int,
-      awayTeamScore: map['awayTeamScore'].toInt() as int,
+      prediction: map['prediction'] as int,
+      homeTeamScore: map['homeTeamScore'] as int,
+      awayTeamScore: map['awayTeamScore'] as int,
     );
   }
 
@@ -82,7 +89,7 @@ class OneXTwo {
 
   @override
   String toString() {
-    return 'OneXTwo(stake: $stake, odds: $odds, result: $result, betType: $betType, homeTeam: $homeTeam, awayTeam: $awayTeam, prediction: $prediction, homeTeamScore: $homeTeamScore, awayTeamScore: $awayTeamScore)';
+    return 'OneXTwo(date: $date, stake: $stake, odds: $odds, result: $result, betType: $betType, homeTeam: $homeTeam, awayTeam: $awayTeam, prediction: $prediction, homeTeamScore: $homeTeamScore, awayTeamScore: $awayTeamScore)';
   }
 
   @override
@@ -90,6 +97,7 @@ class OneXTwo {
     if (identical(this, other)) return true;
   
     return 
+      other.date == date &&
       other.stake == stake &&
       other.odds == odds &&
       other.result == result &&
@@ -103,7 +111,8 @@ class OneXTwo {
 
   @override
   int get hashCode {
-    return stake.hashCode ^
+    return date.hashCode ^
+      stake.hashCode ^
       odds.hashCode ^
       result.hashCode ^
       betType.hashCode ^

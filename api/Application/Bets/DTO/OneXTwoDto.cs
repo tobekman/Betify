@@ -10,6 +10,7 @@ public class OneXTwoDto
     public double Stake { get; set; }
     public double Odds { get; set; }
     public BetResult Result { get; set; }
+    public BetType BetType { get; set; }
     public Team HomeTeam { get; set; }
     public Team AwayTeam { get; set; }
     public OneXTwoType Prediction { get; set; }
