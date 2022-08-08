@@ -12,7 +12,7 @@ public class OneXTwoController : BaseApiController
     [HttpGet]
     public async Task<IActionResult> GetUserBets([FromQuery]BetParams param)
     {
-        return HandlePagedResult(await Mediator.Send(new ListUserBets.Query{Params = param}));
+        return HandlePagedResult(await Mediator.Send(new ListUserOneXTwos.Query{Params = param}));
     }
 
     [Authorize(Policy = "IsBetOwner")]
