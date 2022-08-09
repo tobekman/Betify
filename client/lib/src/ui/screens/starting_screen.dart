@@ -34,11 +34,12 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
     setState(() {
       _currentIndex = value;
     });
+    if (value == 0) {}
     if (value == 1) {
       final status = await ref.watch(betsProvider.notifier).loadBets();
       if (status == RequestStatus.fail) {
-        ScaffoldMessenger.of(context)
-          .showSnackBar(MySnackBars.defaultSnackbar('Unauthorized - Please relog your account'));
+        ScaffoldMessenger.of(context).showSnackBar(MySnackBars.defaultSnackbar(
+            'Unauthorized - Please relog your account'));
         getIt<AuthController>().logout();
         Navigator.pushReplacementNamed(context, Routes.loginScreen);
       }

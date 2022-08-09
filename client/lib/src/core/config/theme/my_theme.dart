@@ -47,6 +47,11 @@ class MyTheme {
         fontFamily: 'NotoSans',
         fontSize: 14,
       );
+  static TextStyle primaryTextStyleWithColor(Color color) => TextStyle(
+        color: color,
+        fontFamily: 'NotoSans',
+        fontSize: 14,
+      );
 
   static TextStyle headerTextStyle() => const TextStyle(
         color: ColorConstants.primaryText,
@@ -54,11 +59,23 @@ class MyTheme {
         fontSize: 36,
         fontFamily: 'NexaDemo',
       );
+  static TextStyle headerMediumTextStyle() => const TextStyle(
+        color: ColorConstants.primaryText,
+        fontWeight: FontWeight.w700,
+        fontSize: 18,
+        fontFamily: 'NexaDemo',
+      );
 
   static TextStyle bodyTextStyle() => const TextStyle(
         color: ColorConstants.primaryText,
         fontFamily: 'NotoSerif',
       );
+
+  static TextStyle bodyTextStyleWithColor(Color color) => TextStyle(
+        color: color,
+        fontFamily: 'NotoSerif',
+      );
+
   static TextStyle linkTextStyle() => const TextStyle(
         color: ColorConstants.primaryLight,
         fontFamily: 'NotoSans',

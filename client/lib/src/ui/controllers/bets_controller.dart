@@ -36,4 +36,44 @@ class BetsController extends StateNotifier<List<OneXTwo>> {
       return RequestStatus.fail;
     }
   }
+
+  double getWinLossAmount() {
+    double sum = 0;
+    for (final OneXTwo bet in state) {
+      if (bet.result == 0) {
+        sum += bet.stake * bet.odds;
+      } else {
+        sum -= bet.stake;
+      }
+    }
+    return sum;
+  }
+
+  int getAmountOfBets() {
+    return state.length;
+  }
+
+  int getAmountOfWins() {
+    int counter = 0;
+    for (final OneXTwo bet in state) {
+      if (bet.result == 0) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  int getAmountOfLosses() {
+    int counter = 0;
+    for (final OneXTwo bet in state) {
+      if (bet.result == 1) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  double getWinLossRatio() {
+    return getAmountOfWins() / getAmountOfLosses();
+  }
 }

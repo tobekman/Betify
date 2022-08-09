@@ -1,10 +1,10 @@
-import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/common/mixins/format_date_mixin.dart';
 import '../../../../core/config/theme/color_constants.dart';
 import '../../../../domain/models/bets/oneXTwo.dart';
 
-class OneXTwoCard extends StatelessWidget {
+class OneXTwoCard extends StatelessWidget with FormatDateMixin {
   final OneXTwo bet;
 
   const OneXTwoCard({
@@ -14,9 +14,6 @@ class OneXTwoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime dateTime = DateTime.parse(bet.date);
-    final formattedDateTime = dateTime.format('D, M j Y, H:i');
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
@@ -32,7 +29,7 @@ class OneXTwoCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      formattedDateTime,
+                      formatDate(bet.date),
                       style: const TextStyle(
                         color: ColorConstants.secondaryText,
                         fontSize: 11,
