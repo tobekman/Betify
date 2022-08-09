@@ -22,7 +22,7 @@ class MyTheme {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: ColorConstants.appBar,
       selectedItemColor: ColorConstants.primaryText,
-      unselectedItemColor: ColorConstants.primary,
+      unselectedItemColor: ColorConstants.secondaryText,
       elevation: 0,
       type: BottomNavigationBarType.fixed,
     ),

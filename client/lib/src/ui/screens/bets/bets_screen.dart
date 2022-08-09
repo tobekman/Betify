@@ -1,7 +1,8 @@
-import 'package:betify_client/src/ui/controllers/bets_controller.dart';
-import 'package:betify_client/src/ui/screens/bets/widgets/one_x_two_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../controllers/bets_controller.dart';
+import 'widgets/one_x_two_card.dart';
 
 class BetsScreen extends ConsumerWidget {
   const BetsScreen({Key? key}) : super(key: key);

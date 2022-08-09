@@ -10,6 +10,7 @@ import '../../../core/config/theme/color_constants.dart';
 import '../../../core/config/theme/my_theme.dart';
 import '../../../domain/models/users/storage/logged_in_user.dart';
 import '../../controllers/auth_controller.dart';
+import '../../widgets/snackbars.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -166,24 +167,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
         ],
       );
 
-  SnackBar _loginSnackbar(String message) => SnackBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              message,
-              style: const TextStyle(fontSize: 15),
-            ),
-          ],
-        ),
-        duration: const Duration(seconds: 3),
-        backgroundColor: ColorConstants.appBar,
-        elevation: 1000,
-        behavior: SnackBarBehavior.floating,
-      );
+ 
 
   IconButton _passwordToggleButton(IconData icon) => IconButton(
         onPressed: () {
@@ -208,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
     }
     if (response is DataFailed) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(_loginSnackbar(response.error.toString()));
+          .showSnackBar(MySnackBars.defaultSnackbar(response.error.toString()));
     }
   }
 

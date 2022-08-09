@@ -1,5 +1,6 @@
 import 'package:betify_client/register_services.dart';
 import 'package:betify_client/src/core/common/data_state.dart';
+import 'package:betify_client/src/core/common/enums/request_status.dart';
 import 'package:betify_client/src/core/common/params/get_bets_params.dart';
 import 'package:betify_client/src/domain/use_cases/bets/get_user_one_x_twos.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +18,7 @@ class BetsController extends StateNotifier<List<OneXTwo>> {
 
   BetsController(this.getUserOneXTwos, this.read) : super([]);
 
-  void loadBets() async {
+  Future<RequestStatus> loadBets() async {
     read(betsLoadingProvider.notifier).state = true;
     final bets = await getUserOneXTwos(
       params: GetBetsParams(
@@ -27,9 +28,12 @@ class BetsController extends StateNotifier<List<OneXTwo>> {
     );
     if (bets is DataSuccess) {
       state = bets.data!;
+      read(betsLoadingProvider.notifier).state = false;
+      return RequestStatus.success;
     } else {
       print(bets.error);
+      read(betsLoadingProvider.notifier).state = false;
+      return RequestStatus.fail;
     }
-    read(betsLoadingProvider.notifier).state = false;
   }
 }

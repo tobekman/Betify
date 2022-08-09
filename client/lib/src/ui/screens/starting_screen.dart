@@ -1,11 +1,12 @@
-import 'package:betify_client/src/core/config/theme/color_constants.dart';
-import 'package:betify_client/src/ui/controllers/bets_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../register_services.dart';
+import '../../core/common/enums/request_status.dart';
 import '../../core/config/routes/routes.dart';
 import '../controllers/auth_controller.dart';
+import '../controllers/bets_controller.dart';
+import '../widgets/snackbars.dart';
 import 'bets/bets_screen.dart';
 import 'home/home_screen.dart';
 import 'profile/profile_screen.dart';
@@ -29,12 +30,18 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
     ProfileScreen(),
   ];
 
-  void _updateIndex(int value) {
+  void _updateIndex(int value) async {
     setState(() {
       _currentIndex = value;
     });
     if (value == 1) {
-      ref.watch(betsProvider.notifier).loadBets();
+      final status = await ref.watch(betsProvider.notifier).loadBets();
+      if (status == RequestStatus.fail) {
+        ScaffoldMessenger.of(context)
+          .showSnackBar(MySnackBars.defaultSnackbar('Unauthorized - Please relog your account'));
+        getIt<AuthController>().logout();
+        Navigator.pushReplacementNamed(context, Routes.loginScreen);
+      }
     }
   }
 

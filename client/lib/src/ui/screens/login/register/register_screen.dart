@@ -1,3 +1,4 @@
+import 'package:betify_client/src/ui/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../register_services.dart';
@@ -199,23 +200,6 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
         ),
       );
 
-  SnackBar _registerSnackbar(String message) => SnackBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        content: Text(
-          message,
-          style: const TextStyle(
-            fontSize: 15,
-            overflow: TextOverflow.clip
-          ),
-        ),
-        duration: const Duration(seconds: 3),
-        backgroundColor: ColorConstants.appBar,
-        elevation: 1000,
-        behavior: SnackBarBehavior.floating,
-      );
-
   IconButton _passwordToggleButton(IconData icon) => IconButton(
         onPressed: () {
           _toggleVisiblePassword();
@@ -238,13 +222,13 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
 
     if (response is DataSuccess) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(_registerSnackbar('Account created'));
+          .showSnackBar(MySnackBars.defaultSnackbar('Account created'));
       Navigator.pop(context);
     }
 
     if (response is DataFailed) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(_registerSnackbar(response.error.toString()));
+          .showSnackBar(MySnackBars.defaultSnackbar(response.error.toString()));
     }
   }
 
