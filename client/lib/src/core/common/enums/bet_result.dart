@@ -1,0 +1,3 @@
+enum BetResult {
+  win, loss
+}

@@ -1,4 +1,3 @@
-import 'package:betify_client/src/ui/controllers/news_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -14,8 +13,6 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(LoggedInUserAdapter());
   await Hive.openBox('userBox');
-  final container = ProviderContainer();
-  container.read(newsProvider.notifier).loadNews();
   runApp(
     SplashScreen(
       onInitComplete: () => runApp(

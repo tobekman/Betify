@@ -5,6 +5,7 @@ import 'package:betify_client/src/data/services/news/news_service.dart';
 import 'package:betify_client/src/domain/repositories/bets/one_x_two_repository.dart';
 import 'package:betify_client/src/domain/repositories/news/news_repository.dart';
 import 'package:betify_client/src/domain/use_cases/auth/register.dart';
+import 'package:betify_client/src/domain/use_cases/bets/create_one_x_two.dart';
 import 'package:betify_client/src/domain/use_cases/bets/get_user_one_x_twos.dart';
 import 'package:betify_client/src/domain/use_cases/news/get_news.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +36,7 @@ Future<void> initServices() async {
   getIt.registerLazySingleton<Register>(() => Register(getIt()));
   getIt.registerLazySingleton<GetUserOneXTwos>(() => GetUserOneXTwos(getIt()));
   getIt.registerLazySingleton<GetNews>(() => GetNews(getIt()));
+  getIt.registerLazySingleton<CreateOneXTwo>(() => CreateOneXTwo(getIt()));
 
   //Controllers
   getIt.registerLazySingleton<AuthController>(() => AuthController());

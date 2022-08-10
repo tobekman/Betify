@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/config/theme/color_constants.dart';
 import '../../controllers/bets_controller.dart';
+import 'widgets/create_bet_form.dart';
 import 'widgets/one_x_two_card.dart';
 
 class BetsScreen extends ConsumerWidget {
@@ -12,8 +14,8 @@ class BetsScreen extends ConsumerWidget {
     final betsLoading = ref.watch(betsLoadingProvider);
     final bets = ref.watch(betsProvider);
 
-    return Center(
-      child: betsLoading
+    return Scaffold(
+      body: betsLoading
           ? const CircularProgressIndicator()
           : ListView.builder(
               shrinkWrap: true,
@@ -22,6 +24,20 @@ class BetsScreen extends ConsumerWidget {
                 return OneXTwoCard(bet: bets[index]);
               },
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const CreateBetForm(),
+            ),
+          );
+        },
+        backgroundColor: ColorConstants.primary,
+        child: const Icon(
+          Icons.playlist_add_sharp,
+        ),
+      ),
     );
   }
 }

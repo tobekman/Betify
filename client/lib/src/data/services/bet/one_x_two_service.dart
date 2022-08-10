@@ -6,7 +6,9 @@ import 'package:http/http.dart' as http;
 import '../../../../register_services.dart';
 import '../../../core/common/app_exception.dart';
 import '../../../core/common/data_state.dart';
+import '../../../core/common/enums/request_status.dart';
 import '../../../core/common/error_response.dart';
+import '../../../core/common/params/create_one_x_two_param.dart';
 import '../../../core/common/params/get_bets_params.dart';
 import '../../../domain/models/bets/oneXTwo.dart';
 import '../../../domain/models/config/app_config.dart';
@@ -54,6 +56,39 @@ class OneXTwoService implements OneXTwoRepository {
           throw UnauthorisedException(ErrorResponse(
               status: 401, title: 'Unauthorized', traceId: '', type: ''));
         }
+    }
+  }
+
+  @override
+  Future<DataState<RequestStatus>> createOneXTwo(OneXTwo bet) async {
+    final url = Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/onextwo');
+    final LoggedInUser user = Hive.box('userBox').get(0);
+
+    final betParam = CreateOneXTwoParams(
+      stake: bet.stake,
+      odds: bet.odds,
+      result: bet.result,
+      betType: bet.betType,
+      homeTeam: bet.homeTeam,
+      awayTeam: bet.awayTeam,
+      prediction: bet.prediction,
+      homeTeamScore: bet.homeTeamScore,
+      awayTeamScore: bet.awayTeamScore,
+    ).toJson();
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${user.token}',
+        },
+        body: betParam,
+      );
+
+      return const DataSuccess(RequestStatus.success);
+    } on Exception catch (e) {
+      return DataFailed(e);
     }
   }
 }

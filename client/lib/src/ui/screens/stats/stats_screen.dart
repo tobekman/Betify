@@ -12,7 +12,7 @@ class StatsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final betsController = ref.watch(betsProvider.notifier);
     final winPercentage =
-        '${betsController.getWinLossRatio().toString().split('.')[1]}%';
+        '${betsController.getWinLossRatio().ceil().toString()}%';
     final wins = betsController.getAmountOfWins();
     final losses = betsController.getAmountOfLosses();
     final betsAmount = betsController.getAmountOfBets();

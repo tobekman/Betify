@@ -62,7 +62,7 @@ class NewsArticle {
       urlToImage: map['urlToImage'] ??
           'https://icdn.sempreinter.com/wp-content/uploads/2020/05/Generic-Football.png',
       publishedAt: map['publishedAt'] as String,
-      content: map['content'] as String,
+      content: map['content'] ?? '',
     );
   }
 

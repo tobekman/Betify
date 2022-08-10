@@ -2,21 +2,29 @@ import 'package:betify_client/register_services.dart';
 import 'package:betify_client/src/core/common/data_state.dart';
 import 'package:betify_client/src/core/common/enums/request_status.dart';
 import 'package:betify_client/src/core/common/params/get_bets_params.dart';
+import 'package:betify_client/src/domain/use_cases/bets/create_one_x_two.dart';
 import 'package:betify_client/src/domain/use_cases/bets/get_user_one_x_twos.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/models/bets/oneXTwo.dart';
 
 final betsProvider = StateNotifierProvider<BetsController, List<OneXTwo>>(
-    (ref) => BetsController(getIt<GetUserOneXTwos>(), ref.read));
+    (ref) => BetsController(
+        getIt<GetUserOneXTwos>(), getIt<CreateOneXTwo>(), ref.read));
 
 final betsLoadingProvider = StateProvider<bool>((ref) => false);
 
 class BetsController extends StateNotifier<List<OneXTwo>> {
   final GetUserOneXTwos getUserOneXTwos;
+  final CreateOneXTwo createOneXTwo;
   final Reader read;
 
-  BetsController(this.getUserOneXTwos, this.read) : super([]);
+  BetsController(this.getUserOneXTwos, this.createOneXTwo, this.read)
+      : super([]);
+
+  void addBet(OneXTwo bet) {
+    state = [...state, bet];
+  }
 
   Future<RequestStatus> loadBets() async {
     read(betsLoadingProvider.notifier).state = true;
@@ -31,8 +39,16 @@ class BetsController extends StateNotifier<List<OneXTwo>> {
       read(betsLoadingProvider.notifier).state = false;
       return RequestStatus.success;
     } else {
-      print(bets.error);
       read(betsLoadingProvider.notifier).state = false;
+      return RequestStatus.fail;
+    }
+  }
+
+  Future<RequestStatus> createBet(OneXTwo bet) async {
+    final response = await createOneXTwo(params: bet);
+    if (response is DataSuccess) {
+      return RequestStatus.success;
+    } else {
       return RequestStatus.fail;
     }
   }
@@ -74,6 +90,6 @@ class BetsController extends StateNotifier<List<OneXTwo>> {
   }
 
   double getWinLossRatio() {
-    return getAmountOfWins() / getAmountOfLosses();
+    return getAmountOfWins() / getAmountOfBets() * 100;
   }
 }
