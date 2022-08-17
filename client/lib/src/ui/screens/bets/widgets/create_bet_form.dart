@@ -272,6 +272,7 @@ class _CreateBetFormState extends ConsumerState<CreateBetForm> {
       );
 
   void _createBet() async {
+    print(betResultValue);
     final bet = OneXTwo(
       date: DateTime.now().toString(),
       stake: double.parse(stake.text),
@@ -282,7 +283,7 @@ class _CreateBetFormState extends ConsumerState<CreateBetForm> {
           name: homeTeam.text, league: 'Premier League', country: 'England'),
       awayTeam: Team(
           name: awayTeam.text, league: 'Premier League', country: 'England'),
-      prediction: predictionValue,
+      oneXTwoPrediction: predictionValue,
       homeTeamScore: int.parse(homeTeamScore.text),
       awayTeamScore: int.parse(awayTeamScore.text),
     );

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/theme/color_constants.dart';
 import '../../controllers/bets_controller.dart';
+import '../../widgets/my_circular_progress_indicator.dart';
 import 'widgets/create_bet_form.dart';
 import 'widgets/one_x_two_card.dart';
 
@@ -16,7 +17,10 @@ class BetsScreen extends ConsumerWidget {
 
     return Scaffold(
       body: betsLoading
-          ? const CircularProgressIndicator()
+          ? const Center(
+              child: MyCircularProgressIndicator(
+              color: ColorConstants.primary,
+            ))
           : ListView.builder(
               shrinkWrap: true,
               itemCount: bets.length,

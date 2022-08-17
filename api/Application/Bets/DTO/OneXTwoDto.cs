@@ -13,7 +13,7 @@ public class OneXTwoDto
     public BetType BetType { get; set; }
     public Team HomeTeam { get; set; }
     public Team AwayTeam { get; set; }
-    public OneXTwoType Prediction { get; set; }
+    public OneXTwoType OneXTwoPrediction { get; set; }
     public byte HomeTeamScore { get; set; }
     public byte AwayTeamScore { get; set; }
 }

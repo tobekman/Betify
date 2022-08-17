@@ -71,7 +71,7 @@ class OneXTwoService implements OneXTwoRepository {
       betType: bet.betType,
       homeTeam: bet.homeTeam,
       awayTeam: bet.awayTeam,
-      prediction: bet.prediction,
+      oneXTwoPrediction: bet.oneXTwoPrediction,
       homeTeamScore: bet.homeTeamScore,
       awayTeamScore: bet.awayTeamScore,
     ).toJson();

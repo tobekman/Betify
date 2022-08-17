@@ -1,3 +1,4 @@
+import 'package:betify_client/src/core/config/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common/mixins/format_date_mixin.dart';
@@ -106,6 +107,10 @@ class OneXTwoCard extends StatelessWidget with FormatDateMixin {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     _winOrLoseText(),
+                    Text(
+                      _getWinAmount(),
+                      style: MyTheme.primaryTextStyle(),
+                    ),
                   ],
                 ),
               ],
@@ -116,28 +121,25 @@ class OneXTwoCard extends StatelessWidget with FormatDateMixin {
     );
   }
 
-  String _getWinningTeam() {
-    if (bet.homeTeamScore - bet.awayTeamScore > 0) {
-      return bet.homeTeam.name;
+  String _getWinAmount() {
+    if (_betIsWin()) {
+      return (bet.odds * bet.stake).toString();
     }
-    if (bet.awayTeamScore - bet.homeTeamScore > 0) {
-      return bet.awayTeam.name;
-    }
-    return 'Draw';
+    return '';
   }
 
   String _getBetPrediction() {
-    if (bet.prediction == 0) {
+    if (bet.oneXTwoPrediction == 0) {
       return '${bet.homeTeam.name} to win';
     }
-    if (bet.prediction == 2) {
+    if (bet.oneXTwoPrediction == 2) {
       return '${bet.awayTeam.name} to win';
     }
     return 'Draw';
   }
 
   Widget _winOrLoseText() {
-    if (bet.result == 0) {
+    if (_betIsWin()) {
       return const Text(
         'Win',
         style: TextStyle(
@@ -151,5 +153,9 @@ class OneXTwoCard extends StatelessWidget with FormatDateMixin {
         color: Colors.red,
       ),
     );
+  }
+
+  bool _betIsWin() {
+    return bet.result == 0;
   }
 }

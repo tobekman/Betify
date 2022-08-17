@@ -4,6 +4,7 @@ using Domain.Bets.BetTypes;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Bets.OneXTwos;
@@ -46,8 +47,7 @@ public class CreateOneXTwo
 
             var bet = request.Bet;
             bet.User = user;
-            
-            
+
             _context.Bets.Add(bet);
             
             var result = await _context.SaveChangesAsync() > 0;

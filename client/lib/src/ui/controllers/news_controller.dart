@@ -22,6 +22,17 @@ class NewsController extends StateNotifier<List<NewsArticle>> {
   ) : super([]);
 
   Future<RequestStatus> loadNews() async {
+    if (state.isNotEmpty) {
+      return RequestStatus.success;
+    }
+    return await _sendGetNewsRequest();
+  }
+
+  Future<RequestStatus> refreshNews() async {
+    return await _sendGetNewsRequest();
+  }
+
+  Future<RequestStatus> _sendGetNewsRequest() async {
     read(newsLoadingProvider.notifier).state = true;
 
     final news = await getNews(params: EmptyParams());

@@ -28,30 +28,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     bool isLoading = ref.watch(newsLoadingProvider);
     final news = ref.watch(newsProvider);
 
-    return isLoading
-        ? const Center(
-            child: MyCircularProgressIndicator(
-            color: ColorConstants.primary,
-          ))
-        : ListView.builder(
-            shrinkWrap: true,
-            itemCount: news.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          ArticleScreen(article: news[index]),
-                    ),
-                  );
-                },
-                child: ArticleCard(
-                  article: news[index],
+    return NotificationListener(
+      onNotification: ((ScrollNotification notification) {
+        if (notification.metrics.pixels < -150) {
+          ref.watch(newsProvider.notifier).refreshNews();
+        }
+        return true;
+      }),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: news.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      ArticleScreen(article: news[index]),
                 ),
               );
             },
+            child: ArticleCard(
+              article: news[index],
+            ),
           );
+        },
+      ),
+    );
   }
 }
