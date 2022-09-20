@@ -1,6 +1,6 @@
 abstract class Routes {
-  static const startingScreen = 'startingscreen';
-  static const home = 'home';
-  static const loginScreen = 'login';
-  static const registerScreen = 'register';
+  static const startingView = '/';
+  static const homeView = '/homeview';
+  static const loginView = '/loginview';
+  static const registerView = '/registerview';
 }

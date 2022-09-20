@@ -8,7 +8,7 @@ import '../../domain/models/news/news_article.dart';
 import '../../domain/use_cases/news/get_news.dart';
 
 final newsProvider = StateNotifierProvider<NewsController, List<NewsArticle>>(
-    (ref) => NewsController(getIt<GetNews>(), ref.read));
+    (ref) => NewsController(locator<GetNews>(), ref.read));
 
 final newsLoadingProvider = StateProvider<bool>((ref) => false);
 

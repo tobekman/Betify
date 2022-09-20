@@ -5,8 +5,8 @@ import '../../../core/config/theme/color_constants.dart';
 import '../../../core/config/theme/my_theme.dart';
 import '../../controllers/bets_controller.dart';
 
-class StatsScreen extends ConsumerWidget {
-  const StatsScreen({Key? key}) : super(key: key);
+class StatsView extends ConsumerWidget {
+  const StatsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +17,6 @@ class StatsScreen extends ConsumerWidget {
     final losses = betsController.getAmountOfLosses();
     final betsAmount = betsController.getAmountOfBets();
     final winLossAmount = betsController.getWinLossAmount();
-    final isProfit = winLossAmount > 0;
 
     return Center(
       child: Padding(

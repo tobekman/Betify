@@ -18,7 +18,7 @@ import '../../../domain/repositories/bets/one_x_two_repository.dart';
 class OneXTwoService implements OneXTwoRepository {
   @override
   Future<DataState<List<OneXTwo>>> getUserOneXTwos(GetBetsParams params) async {
-    final url = Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/onextwo');
+    final url = Uri.parse('${locator<AppConfig>().baseApiUrl}/api/onextwo');
     final LoggedInUser user = Hive.box('userBox').get(0);
 
     try {
@@ -61,7 +61,7 @@ class OneXTwoService implements OneXTwoRepository {
 
   @override
   Future<DataState<RequestStatus>> createOneXTwo(OneXTwo bet) async {
-    final url = Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/onextwo');
+    final url = Uri.parse('${locator<AppConfig>().baseApiUrl}/api/onextwo');
     final LoggedInUser user = Hive.box('userBox').get(0);
 
     final betParam = CreateOneXTwoParams(

@@ -1,4 +1,3 @@
-import 'package:betify_client/src/ui/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../register_services.dart';
@@ -8,9 +7,10 @@ import '../../../../core/common/params/register_params.dart';
 import '../../../../core/config/theme/color_constants.dart';
 import '../../../../core/config/theme/my_theme.dart';
 import '../../../controllers/auth_controller.dart';
+import '../../../widgets/snackbars.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -211,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> with ValidationMixin {
       );
 
   void _register() async {
-    final response = await getIt<AuthController>().register(
+    final response = await locator<AuthController>().register(
       RegisterParams(
         displayName: displayName.text,
         username: username.text,

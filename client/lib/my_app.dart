@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Betify',
       onGenerateRoute: routes.controller,
-      initialRoute: box.isEmpty ? Routes.loginScreen : Routes.startingScreen,
+      initialRoute: box.isEmpty ? Routes.loginView : Routes.startingView,
       theme: MyTheme.theme,
     );
   }

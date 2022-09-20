@@ -7,44 +7,28 @@ import '../../core/config/routes/routes.dart';
 import '../controllers/auth_controller.dart';
 import '../controllers/bets_controller.dart';
 import '../widgets/snackbars.dart';
-import 'bets/bets_screen.dart';
-import 'home/home_screen.dart';
-import 'profile/profile_screen.dart';
-import 'stats/stats_screen.dart';
-import 'upcoming/upcoming_screen.dart';
+import 'bets/bets_view.dart';
+import 'home/home_view.dart';
+import 'profile/profile_view.dart';
+import 'stats/stats_view.dart';
+import 'upcoming/upcoming_view.dart';
 
-class StartingScreen extends ConsumerStatefulWidget {
-  const StartingScreen({Key? key}) : super(key: key);
+class StartingView extends ConsumerStatefulWidget {
+  const StartingView({Key? key}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _StartingScreenState();
 }
 
-class _StartingScreenState extends ConsumerState<StartingScreen> {
+class _StartingScreenState extends ConsumerState<StartingView> {
   int _currentIndex = 0;
   final List _screens = const [
-    HomeScreen(),
-    BetsScreen(),
-    UpcomingScreen(),
-    StatsScreen(),
-    ProfileScreen(),
+    HomeView(),
+    BetsView(),
+    UpcomingView(),
+    StatsView(),
+    ProfileView(),
   ];
-
-  void _updateIndex(int value) async {
-    setState(() {
-      _currentIndex = value;
-    });
-    if (value == 0) {}
-    if (value == 1) {
-      final status = await ref.watch(betsProvider.notifier).loadBets();
-      if (status == RequestStatus.fail) {
-        ScaffoldMessenger.of(context).showSnackBar(MySnackBars.defaultSnackbar(
-            'Unauthorized - Please relog your account'));
-        getIt<AuthController>().logout();
-        Navigator.pushReplacementNamed(context, Routes.loginScreen);
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +39,8 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              getIt<AuthController>().logout();
-              Navigator.pushReplacementNamed(context, Routes.loginScreen);
+              locator<AuthController>().logout();
+              Navigator.pushReplacementNamed(context, Routes.loginView);
             },
             icon: const Icon(
               Icons.logout,
@@ -100,5 +84,21 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
         ],
       ),
     );
+  }
+
+  void _updateIndex(int value) async {
+    setState(() {
+      _currentIndex = value;
+    });
+    if (value == 0) {}
+    if (value == 1) {
+      final status = await ref.watch(betsProvider.notifier).loadBets();
+      if (status == RequestStatus.fail) {
+        ScaffoldMessenger.of(context).showSnackBar(MySnackBars.defaultSnackbar(
+            'Unauthorized - Please relog your account'));
+        locator<AuthController>().logout();
+        Navigator.pushReplacementNamed(context, Routes.loginView);
+      }
+    }
   }
 }

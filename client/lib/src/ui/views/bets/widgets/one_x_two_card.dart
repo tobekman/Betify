@@ -1,8 +1,8 @@
-import 'package:betify_client/src/core/config/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common/mixins/format_date_mixin.dart';
 import '../../../../core/config/theme/color_constants.dart';
+import '../../../../core/config/theme/my_theme.dart';
 import '../../../../domain/models/bets/oneXTwo.dart';
 
 class OneXTwoCard extends StatelessWidget with FormatDateMixin {

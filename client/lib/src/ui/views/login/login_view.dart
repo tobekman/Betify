@@ -12,14 +12,14 @@ import '../../../domain/models/users/storage/logged_in_user.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/snackbars.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  LoginView({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
+class _LoginViewState extends State<LoginView> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, Routes.registerScreen);
+              Navigator.pushNamed(context, Routes.registerView);
             },
             child: Text(
               ' Create account',
@@ -166,8 +166,6 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
           ),
         ],
       );
-
- 
 
   IconButton _passwordToggleButton(IconData icon) => IconButton(
         onPressed: () {
@@ -180,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
       );
 
   void _login() async {
-    final response = await getIt<AuthController>().login(
+    final response = await locator<AuthController>().login(
       LoginParams(
         email: email,
         password: password,
@@ -188,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
     if (response is DataSuccess) {
       Hive.box('userBox').add(LoggedInUser.fromUser(response.data!));
-      Navigator.pushReplacementNamed(context, Routes.startingScreen);
+      Navigator.pushReplacementNamed(context, Routes.startingView);
     }
     if (response is DataFailed) {
       ScaffoldMessenger.of(context)

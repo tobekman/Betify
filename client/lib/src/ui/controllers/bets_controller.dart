@@ -10,7 +10,7 @@ import '../../domain/models/bets/oneXTwo.dart';
 
 final betsProvider = StateNotifierProvider<BetsController, List<OneXTwo>>(
     (ref) => BetsController(
-        getIt<GetUserOneXTwos>(), getIt<CreateOneXTwo>(), ref.read));
+        locator<GetUserOneXTwos>(), locator<CreateOneXTwo>(), ref.read));
 
 final betsLoadingProvider = StateProvider<bool>((ref) => false);
 

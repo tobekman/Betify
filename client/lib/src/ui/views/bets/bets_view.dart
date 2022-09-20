@@ -7,8 +7,8 @@ import '../../widgets/my_circular_progress_indicator.dart';
 import 'widgets/create_bet_form.dart';
 import 'widgets/one_x_two_card.dart';
 
-class BetsScreen extends ConsumerWidget {
-  const BetsScreen({Key? key}) : super(key: key);
+class BetsView extends ConsumerWidget {
+  const BetsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

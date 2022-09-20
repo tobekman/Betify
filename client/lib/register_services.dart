@@ -17,27 +17,28 @@ import 'src/domain/repositories/auth_repository.dart';
 import 'src/domain/use_cases/auth/login.dart';
 import 'src/ui/controllers/auth_controller.dart';
 
-final getIt = GetIt.instance;
+final locator = GetIt.instance;
 
 Future<void> initServices() async {
   //Config
   final configFile = await rootBundle.loadString('assets/config/main.json');
   final configData = jsonDecode(configFile);
-  getIt.registerLazySingleton<AppConfig>(
+  locator.registerLazySingleton<AppConfig>(
       () => AppConfig(baseApiUrl: configData['BASE_API_URL']));
 
   //Services
-  getIt.registerLazySingleton<AuthRepository>(() => AuthService());
-  getIt.registerLazySingleton<OneXTwoRepository>(() => OneXTwoService());
-  getIt.registerLazySingleton<NewsRepository>(() => NewsService());
+  locator.registerLazySingleton<AuthRepository>(() => AuthService());
+  locator.registerLazySingleton<OneXTwoRepository>(() => OneXTwoService());
+  locator.registerLazySingleton<NewsRepository>(() => NewsService());
 
   //Use cases
-  getIt.registerLazySingleton<Login>(() => Login(getIt()));
-  getIt.registerLazySingleton<Register>(() => Register(getIt()));
-  getIt.registerLazySingleton<GetUserOneXTwos>(() => GetUserOneXTwos(getIt()));
-  getIt.registerLazySingleton<GetNews>(() => GetNews(getIt()));
-  getIt.registerLazySingleton<CreateOneXTwo>(() => CreateOneXTwo(getIt()));
+  locator.registerLazySingleton<Login>(() => Login(locator()));
+  locator.registerLazySingleton<Register>(() => Register(locator()));
+  locator
+      .registerLazySingleton<GetUserOneXTwos>(() => GetUserOneXTwos(locator()));
+  locator.registerLazySingleton<GetNews>(() => GetNews(locator()));
+  locator.registerLazySingleton<CreateOneXTwo>(() => CreateOneXTwo(locator()));
 
   //Controllers
-  getIt.registerLazySingleton<AuthController>(() => AuthController());
+  locator.registerLazySingleton<AuthController>(() => AuthController());
 }

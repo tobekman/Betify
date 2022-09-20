@@ -6,7 +6,7 @@ import '../../../core/config/theme/my_theme.dart';
 class SplashScreen extends StatefulWidget {
   final VoidCallback onInitComplete;
 
-  SplashScreen({
+  const SplashScreen({
     Key? key,
     required this.onInitComplete,
   }) : super(key: key);

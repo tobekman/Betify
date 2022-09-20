@@ -11,7 +11,7 @@ import '../../domain/use_cases/auth/register.dart';
 
 class AuthController {
   Future<DataState<User>> login(LoginParams params) async {
-    final response = await getIt<Login>().call(
+    final response = await locator<Login>().call(
       params: LoginParams(email: params.email, password: params.password),
     );
     if (response is DataSuccess) {
@@ -21,7 +21,7 @@ class AuthController {
   }
 
   Future<DataState<User>> register(RegisterParams params) async {
-    final response = await getIt<Register>().call(
+    final response = await locator<Register>().call(
       params: RegisterParams(
         displayName: params.displayName,
         username: params.username,

@@ -13,7 +13,8 @@ import '../../../domain/repositories/auth_repository.dart';
 class AuthService implements AuthRepository {
   @override
   Future<DataState<User>> loginUser(LoginParams params) async {
-    final url = Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/account/login');
+    final url =
+        Uri.parse('${locator<AppConfig>().baseApiUrl}/api/account/login');
     final body = LoginParams(
       email: params.email,
       password: params.password,
@@ -34,7 +35,7 @@ class AuthService implements AuthRepository {
   @override
   Future<DataState<User>> registerUser(RegisterParams params) async {
     final url =
-        Uri.parse('${getIt<AppConfig>().baseApiUrl}/api/account/register');
+        Uri.parse('${locator<AppConfig>().baseApiUrl}/api/account/register');
     final body = RegisterParams(
       displayName: params.displayName,
       username: params.username,
